@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.27.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebApp.DataAccess\WebApp.DataAccess.csproj" />
+    <ProjectReference Include="..\WebApp.Entities\WebApp.Entities.csproj" />
+    <ProjectReference Include="..\WebApp.Models\WebApp.Models.csproj" />
+  </ItemGroup>
+
+</Project>
