@@ -23,7 +23,6 @@ namespace WebApp.Entities.Concrete
         public string OwnerId { get; set; }
 
         public ICollection<string> Images { get; set; }
-
         public DateTime AvailableFrom { get; set; }
         public DateTime AvailableTo { get; set; }
         public bool IsFeatured { get; set; }
