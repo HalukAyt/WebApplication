@@ -1,0 +1,95 @@
+﻿@model WebApp.Models.ViewModels.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Your Booking Site</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Banner -->
+        <div class="hero-banner text-center">
+            <h1>Welcome to Your Booking Site</h1>
+            <p>Find and book the best properties worldwide</p>
+            <a class="btn btn-primary" href="#search-form">Start Your Search</a>
+        </div>
+
+        <!-- Search Form -->
+        <div id="search-form" class="search-form mt-5">
+            <h2>Search for Properties</h2>
+            <form asp-action="Search" method="get">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="Location">Location</label>
+                        <input type="text" class="form-control" id="Location" name="location" placeholder="Enter location" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="StartDate">Start Date</label>
+                        <input type="date" class="form-control" id="StartDate" name="startDate" />
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="EndDate">End Date</label>
+                        <input type="date" class="form-control" id="EndDate" name="endDate" />
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="PriceRange">Max Price</label>
+                        <input type="number" class="form-control" id="PriceRange" name="priceRange" placeholder="Price" />
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+
+        <!-- Featured Properties -->
+        <div class="featured-properties mt-5">
+            <h2>Featured Properties</h2>
+            <div class="row">
+                @foreach (var property in Model.FeaturedProperties)
+                {
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="@property.ImageUrl" alt="Property Image">
+                            <div class="card-body">
+                                <h5 class="card-title">@property.Name</h5>
+                                <p class="card-text">@property.Description</p>
+                                <p class="card-text"><strong>Price: </strong>@property.Price</p>
+                                <a href="/properties/details/@property.Id" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonials mt-5">
+            <h2>What Our Users Say</h2>
+            <div class="row">
+                @foreach (var testimonial in Model.Testimonials)
+                {
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@testimonial.UserName</h5>
+                                <p class="card-text">"@testimonial.Comment"</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+</body>
+</html>
