@@ -2,12 +2,19 @@
 using WebApp.Core.Models;
 using WebApp.DataAccess.Abstract;
 using WebApp.Business.Abstract;
+using System;
+using System.Linq;
 
 namespace WebApp.Business.Concrete
 {
-    public class BookingService(IBookingDataAccess bookingDataAccess) : IBookingService
+    public class BookingService : IBookingService
     {
-        private readonly IBookingDataAccess _bookingDataAccess = bookingDataAccess;
+        private readonly IBookingDataAccess _bookingDataAccess;
+
+        public BookingService(IBookingDataAccess bookingDataAccess)
+        {
+            _bookingDataAccess = bookingDataAccess;
+        }
 
         public GetManyResult<Booking> GetAllBookings()
         {
@@ -38,6 +45,19 @@ namespace WebApp.Business.Concrete
                 return _bookingDataAccess.ReplaceOne(booking, booking.Id.ToString());
             }
             return new GetOneResult<Booking> { Success = false, Message = "Booking not found" };
+        }
+
+        public bool CheckAvailability(string propertyId, DateTime startDate, DateTime endDate)
+        {
+            var bookings = _bookingDataAccess.FilterBy(b => b.PropertyId == propertyId && b.Status == "Confirmed").Result;
+            foreach (var booking in bookings)
+            {
+                if (startDate < booking.EndDate && endDate > booking.StartDate)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

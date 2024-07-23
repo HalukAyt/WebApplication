@@ -6,14 +6,9 @@ using WebApp.Entities.Concrete;
 
 namespace WebApp.User.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(IPropertyService propertyService) : Controller
     {
-        private readonly IPropertyService _propertyService;
-
-        public HomeController(IPropertyService propertyService)
-        {
-            _propertyService = propertyService;
-        }
+        private readonly IPropertyService _propertyService = propertyService;
 
         public IActionResult Index()
         {
@@ -50,8 +45,7 @@ namespace WebApp.User.Controllers
             var model = new HomeViewModel
             {
                 FeaturedProperties = properties.Select(p => new PropertyViewModel
-                {
-                    Id = p.Id.ToString(),
+                {                  
                     Name = p.Name,
                     Description = p.Description,
                     ImageUrl = p.ImageUrl,
@@ -63,49 +57,45 @@ namespace WebApp.User.Controllers
             return View("Index", model);
         }
 
-        private List<PropertyViewModel> GetFeaturedProperties()
+        private static List<PropertyViewModel> GetFeaturedProperties()
         {
             // Example data
-            return new List<PropertyViewModel>
-            {
-                new PropertyViewModel
-                {
-                    Id = "1",
+            return
+            [
+                new() {
+            
                     Name = "Beachside Villa",
                     Description = "A beautiful villa by the beach.",
                     ImageUrl = "https://www.costas-casas.com/db/huizen/2039/14409202jpg",
                     Price = 200
                 },
-                new PropertyViewModel
-                {
-                    Id = "2",
+                new() {
+               
                     Name = "Mountain Cabin",
                     Description = "Cozy cabin in the mountains.",
                     ImageUrl = "https://pictures.escapia.com/HEACAB/244444/7002830926.JPEG",
                     Price = 150
                 }
-            };
+            ];
         }
 
-        private List<TestimonialViewModel> GetTestimonials()
+        private static List<TestimonialViewModel> GetTestimonials()
         {
             // Example data
-            return new List<TestimonialViewModel>
-            {
-                new TestimonialViewModel
-                {
+            return
+            [
+                new() {
                     UserName = "John Doe",
                     Comment = "This site is amazing! Found the perfect place for my vacation."
                 },
-                new TestimonialViewModel
-                {
+                new() {
                     UserName = "Jane Smith",
                     Comment = "Easy to use and great selection of properties."
                 }
-            };
+            ];
         }
 
-        private bool CheckAvailability(Property property, DateTime startDate, DateTime endDate)
+        private static bool CheckAvailability(Property property, DateTime startDate, DateTime endDate)
         {
             // Implement logic to check if the property is available
             return true;

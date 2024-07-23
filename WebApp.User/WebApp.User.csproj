@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -90,6 +90,10 @@
     <ProjectReference Include="..\WebApp.DataAccess\WebApp.DataAccess.csproj" />
     <ProjectReference Include="..\WebApp.Entities\WebApp.Entities.csproj" />
     <ProjectReference Include="..\WebApp.Models\WebApp.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

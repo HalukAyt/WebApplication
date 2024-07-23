@@ -6,10 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace WebApp.DataAccess.Concrete
 {
-    public class PropertyDataAccess : MongoRepositoryBase<Property>, IPropertyDataAccess
+    public class PropertyDataAccess(IOptions<MongoSettings> settings) : MongoRepositoryBase<Property>(settings), IPropertyDataAccess
     {
-        public PropertyDataAccess(IOptions<MongoSettings> settings) : base(settings)
-        {
-        }
     }
 }
